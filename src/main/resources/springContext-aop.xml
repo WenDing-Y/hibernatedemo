@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--自动扫描-->
+    <context:component-scan base-package="com.haut.aop"/>
+    <bean id="departlog" class="com.haut.aop.DepartLog"></bean>
+    <aop:config>
+        <aop:aspect id="log" ref="departlog">
+            <aop:pointcut id="biz" expression="execution(* com.haut.aop.*.*(..))"/>
+            <aop:before method="beforeLog" pointcut-ref="biz"></aop:before>
+            <aop:after method="afterLog" pointcut-ref="biz"></aop:after>
+        </aop:aspect>
+    </aop:config>
+</beans>
