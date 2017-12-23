@@ -1,0 +1,27 @@
+#5改成5.2.0  
+wget http://archive.cloudera.com/cm5/redhat/6/x86_64/cm/cloudera-manager.repo
+wget http://archive.cloudera.com/cm5/installer/5.2.0/cloudera-manager-installer.bin
+wget http://archive.cloudera.com/cm5/redhat/6/x86_64/cm/5.2.0/RPMS/x86_64/cloudera-manager-agent-5.2.0-1.cm520.p0.60.el6.x86_64.rpm
+wget http://archive.cloudera.com/cm5/redhat/6/x86_64/cm/5.2.0/RPMS/x86_64/cloudera-manager-daemons-5.2.0-1.cm520.p0.60.el6.x86_64.rpm
+wget http://archive.cloudera.com/cm5/redhat/6/x86_64/cm/5.2.0/RPMS/x86_64/cloudera-manager-server-5.2.0-1.cm520.p0.60.el6.x86_64.rpm
+wget http://archive.cloudera.com/cm5/redhat/6/x86_64/cm/5.2.0/RPMS/x86_64/cloudera-manager-server-db-2-5.2.0-1.cm520.p0.60.el6.x86_64.rpm
+wget http://archive.cloudera.com/cm5/redhat/6/x86_64/cm/5.2.0/RPMS/x86_64/enterprise-debuginfo-5.2.0-1.cm520.p0.60.el6.x86_64.rpm
+wget http://archive.cloudera.com/cm5/redhat/6/x86_64/cm/5.2.0/RPMS/x86_64/jdk-6u31-linux-amd64.rpm
+wget http://archive.cloudera.com/cm5/redhat/6/x86_64/cm/5.2.0/RPMS/x86_64/oracle-j2sdk1.7-1.7.0+update67-1.x86_64.rpm
+wget http://archive.cloudera.com/cdh5/parcels/5.2.0/CDH-5.2.0-1.cdh5.2.0.p0.36-el6.parcel
+wget http://archive.cloudera.com/cdh5/parcels/5.2.0/CDH-5.2.0-1.cdh5.2.0.p0.36-el6.parcel.sha1
+wget http://archive.cloudera.com/cdh5/parcels/5.2.0/manifest.json
+mv CDH-5.2.0-1.cdh5.2.0.p0.36-el6.parcel.sha1 CDH-5.2.0-1.cdh5.2.0.p0.36-el6.parcel.sha
+cp  cloudera-manager.repo  /etc/yum.repos.d/
+yum -y install *.rpm
+cp CDH-5.2.0-1.cdh5.2.0.p0.36-el6.parcel* /opt/cloudera/parcel-repo/
+cp manifest.json /opt/cloudera/parcel-repo/
+rm /etc/cloudera-scm-server/db.properties 
+chmod u+x cloudera-manager-installer.bin 
+./cloudera-manager-installer.bin
+安装完成
+启动agent报错
+touch /var/log/cloudera-scm-agent/cloudera-scm-agent.log
+启动hive报错
+cp mysql-connector-java-5.1.45-bin.jar /opt/cloudera/parcels/CDH/lib/hive/lib
+cp mysql-connector-java-5.1.45-bin.jar /usr/share/cmf/lib
